@@ -46,7 +46,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
   angular.forEach(['minMode', 'maxMode'], function( key ) {
     if ( $attrs[key] ) {
       $scope.$parent.$watch($parse($attrs[key]), function(value) {
-        self[key] = value;
+        self[key] = angular.isDefined(value) ? value : $attrs[key];
       });
     } else {
       self[key] = datepickerConfig[key] || null;
