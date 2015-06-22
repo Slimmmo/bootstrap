@@ -43,6 +43,16 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
     }
   });
 
+  angular.forEach(['minMode', 'maxMode'], function( key ) {
+    if ( $attrs[key] ) {
+      $scope.$parent.$watch($parse($attrs[key]), function(value) {
+        self[key] = value;
+      });
+    } else {
+      self[key] = datepickerConfig[key] || null;
+    }
+  });
+
   $scope.datepickerMode = $scope.datepickerMode || datepickerConfig.datepickerMode;
   $scope.maxMode = self.maxMode;
   $scope.uniqueId = 'datepicker-' + $scope.$id + '-' + Math.floor(Math.random() * 10000);
