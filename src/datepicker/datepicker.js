@@ -47,6 +47,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
     if ( $attrs[key] ) {
       $scope.$parent.$watch($parse($attrs[key]), function(value) {
         self[key] = angular.isDefined(value) ? value : $attrs[key];
+        $scope[key] = self[key];
       });
     } else {
       self[key] = datepickerConfig[key] || null;
