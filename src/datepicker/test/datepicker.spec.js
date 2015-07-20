@@ -2066,6 +2066,7 @@ describe('datepicker directive', function () {
       clickTitleButton();
       expect(getTitle()).toBe('2001 - 2020');
       $rootScope.minMode = 'year';
+      $rootScope.$digest();
       clickOption( 5 );
       expect(getTitle()).toBe('2001 - 2020');
     });
@@ -2073,6 +2074,7 @@ describe('datepicker directive', function () {
     it('updates current mode if necessary', function() {
       expect(getTitle()).toBe('2013');
       $rootScope.minMode = 'year';
+      $rootScope.$digest();
       expect(getTitle()).toBe('2001 - 2020');
     });
   });
@@ -2094,6 +2096,7 @@ describe('datepicker directive', function () {
       clickOption( 10 );
       expect(getTitle()).toBe('November 2013');
       $rootScope.maxMode = 'day';
+      $rootScope.$digest();
       clickTitleButton();
       expect(getTitle()).toBe('November 2013');
     });
@@ -2107,6 +2110,7 @@ describe('datepicker directive', function () {
       clickOption( 10 );
       expect(getTitleButton().prop('disabled')).toBe(false);
       $rootScope.maxMode = 'day';
+      $rootScope.$digest();
       expect(getTitleButton().prop('disabled')).toBe(true);
     });
     
@@ -2115,6 +2119,7 @@ describe('datepicker directive', function () {
       clickTitleButton();
       expect(getTitle()).toBe('2013');
       $rootScope.maxMode = 'day';
+      $rootScope.$digest();
       expect(getTitle()).toBe('August 2013');
     });
   });
