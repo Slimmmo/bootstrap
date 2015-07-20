@@ -2092,10 +2092,10 @@ describe('datepicker directive', function () {
       clickTitleButton();
       expect(getTitle()).toBe('2013');
       clickOption( 10 );
-      expect(getTitle()).toBe('September 2013');
+      expect(getTitle()).toBe('November 2013');
       $rootScope.maxMode = 'day';
       clickTitleButton();
-      expect(getTitle()).toBe('September 2013');
+      expect(getTitle()).toBe('November 2013');
     });
 
     it('disables the title button at it', function() {
