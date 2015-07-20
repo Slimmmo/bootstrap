@@ -2074,7 +2074,7 @@ describe('datepicker directive', function () {
       expect(getTitle()).toBe('2013');
       $rootScope.minMode = 'year';
       expect(getTitle()).toBe('2001 - 2020');
-    }
+    });
   });
 
   describe('`max-mode`', function () {
@@ -2116,7 +2116,7 @@ describe('datepicker directive', function () {
       expect(getTitle()).toBe('2013');
       $rootScope.maxMode = 'day';
       expect(getTitle()).toBe('August 2013');
-    }
+    });
   });
 
   describe('with an ngModelController having formatters and parsers', function() {
