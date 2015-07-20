@@ -2054,7 +2054,8 @@ describe('datepicker directive', function () {
     beforeEach(inject(function() {
       $rootScope.date = new Date('August 11, 2013');
       $rootScope.mode = 'month';
-      element = $compile('<datepicker ng-model="date" min-mode="month" datepicker-mode="mode"></datepicker>')($rootScope);
+      $rootScope.minMode = 'month';
+      element = $compile('<datepicker ng-model="date" min-mode="minMode" datepicker-mode="mode"></datepicker>')($rootScope);
       $rootScope.$digest();
     }));
 
@@ -2064,13 +2065,23 @@ describe('datepicker directive', function () {
       expect(getTitle()).toBe('2013');
       clickTitleButton();
       expect(getTitle()).toBe('2001 - 2020');
+      $rootScope.minMode = 'year';
+      clickOption( 5 );
+      expect(getTitle()).toBe('2001 - 2020');
     });
+    
+    it('updates current mode if necessary', function() {
+      expect(getTitle()).toBe('2013');
+      $rootScope.minMode = 'year';
+      expect(getTitle()).toBe('2001 - 2020');
+    }
   });
 
   describe('`max-mode`', function () {
     beforeEach(inject(function() {
       $rootScope.date = new Date('August 11, 2013');
-      element = $compile('<datepicker ng-model="date" max-mode="month"></datepicker>')($rootScope);
+      $rootScope.maxMode = 'month';
+      element = $compile('<datepicker ng-model="date" max-mode="maxMode"></datepicker>')($rootScope);
       $rootScope.$digest();
     }));
 
@@ -2080,6 +2091,11 @@ describe('datepicker directive', function () {
       expect(getTitle()).toBe('2013');
       clickTitleButton();
       expect(getTitle()).toBe('2013');
+      clickOption( 10 );
+      expect(getTitle()).toBe('September 2013');
+      $rootScope.maxMode = 'day';
+      clickTitleButton();
+      expect(getTitle()).toBe('September 2013');
     });
 
     it('disables the title button at it', function() {
@@ -2088,7 +2104,19 @@ describe('datepicker directive', function () {
       expect(getTitleButton().prop('disabled')).toBe(true);
       clickTitleButton();
       expect(getTitleButton().prop('disabled')).toBe(true);
+      clickOption( 10 );
+      expect(getTitleButton().prop('disabled')).toBe(false);
+      $rootScope.maxMode = 'day';
+      expect(getTitleButton().prop('disabled')).toBe(true);
     });
+    
+    it('updates current mode if necessary', function() {
+      expect(getTitle()).toBe('August 2013');
+      clickTitleButton();
+      expect(getTitle()).toBe('2013');
+      $rootScope.maxMode = 'day';
+      expect(getTitle()).toBe('August 2013');
+    }
   });
 
   describe('with an ngModelController having formatters and parsers', function() {
